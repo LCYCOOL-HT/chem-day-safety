@@ -208,6 +208,35 @@ body.mgworld #eventCard,body.evact #objective{display:none!important}
 #screen{position:fixed;inset:0;z-index:50;display:none;overflow-y:auto;background:linear-gradient(160deg,rgba(13,40,66,.94),rgba(9,22,36,.97));color:#fff;padding:calc(16px + var(--sat)) calc(16px + var(--sar)) calc(16px + var(--sab)) calc(16px + var(--sal));-webkit-overflow-scrolling:touch}
 #screen.show{display:block}
 #screen.clear{background:linear-gradient(180deg,rgba(9,22,36,.35),rgba(9,22,36,.85))}
+/* 封面：中間完全透明，看得到旋轉中的 3D 廠區，可拖曳旋轉 */
+#screen.cover{background:linear-gradient(180deg,rgba(9,22,36,.62) 0%,rgba(9,22,36,0) 26%,rgba(9,22,36,0) 50%,rgba(9,22,36,.55) 72%,rgba(9,22,36,.82) 100%);pointer-events:none}
+#screen.cover .wrap{display:flex;flex-direction:column;min-height:100%}
+#screen.cover .hero,#screen.cover .cpanel{pointer-events:auto}
+.hero{text-align:center;text-shadow:0 2px 10px rgba(0,0,0,.55)}
+.hero .title{margin-top:4px}
+.b3d{display:inline-block;vertical-align:middle;margin-left:10px;padding:2px 12px;border-radius:10px;font-size:.55em;letter-spacing:1px;background:linear-gradient(135deg,#ffb21a,#ff6a1a);color:#fff;transform:perspective(200px) rotateY(-18deg) rotateZ(-4deg);box-shadow:4px 5px 0 rgba(0,0,0,.35);text-shadow:none}
+.cspace{flex:1 1 auto;min-height:30vh;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px}
+.dragHint{background:rgba(0,0,0,.45);border-radius:999px;padding:6px 14px;font-size:calc(14px + var(--fz));transition:opacity .6s;animation:hintSwing 2.4s ease-in-out infinite}
+.dragHint.gone{opacity:0}
+@keyframes hintSwing{0%,100%{transform:translateX(-14px)}50%{transform:translateX(14px)}}
+.cpanel{background:rgba(9,22,36,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:12px 14px;max-width:560px;width:100%;margin:0 auto}
+.cpanel .stats{grid-template-columns:repeat(4,1fr);gap:6px}
+.cpanel .stat{background:rgba(255,255,255,.1);padding:4px 4px;text-align:center}
+.cpanel .stat .k{color:rgba(255,255,255,.75);font-size:calc(11px + var(--fz))} .cpanel .stat .v{color:#fff;font-size:calc(14px + var(--fz));white-space:nowrap}
+.cpanel .xpbar{background:rgba(255,255,255,.18)}
+.cpanel .menuBtns{margin-top:10px}
+.cpanel .btn.sec{background:rgba(255,255,255,.16);color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.3)}
+.cpanel .note{font-size:calc(12px + var(--fz));opacity:.75;text-align:center;margin:10px 0 0}
+@media (max-width:560px){.cpanel{padding:10px}.cpanel .menuBtns .btn{min-height:48px}.cpanel .note{font-size:calc(11px + var(--fz))}}
+@media (max-height:520px) and (orientation:landscape){
+  #screen.cover{background:linear-gradient(90deg,rgba(9,22,36,0) 45%,rgba(9,22,36,.6) 100%),linear-gradient(180deg,rgba(9,22,36,.55),rgba(9,22,36,0) 30%)}
+  #screen.cover .hero,#screen.cover .cspace{margin-right:min(360px,46vw)}
+  .cspace{min-height:0}.hero .title{font-size:30px}.hero .title small{font-size:13px}
+  .cpanel{position:fixed;top:calc(10px + var(--sat));bottom:calc(10px + var(--sab));right:calc(10px + var(--sar));width:min(340px,44vw);overflow-y:auto;padding:10px}
+  .cpanel .stats{grid-template-columns:repeat(2,1fr)}
+  .cpanel .note{display:none}
+  .cpanel .row2 .btn{font-size:15px;padding:6px 4px;min-height:44px}
+}
 .wrap{max-width:760px;margin:0 auto}
 .title{font-size:clamp(28px,8vw,52px);font-weight:900;margin:8px 0 4px;letter-spacing:2px;text-shadow:0 4px 0 rgba(0,0,0,.25)}
 .title small{display:block;font-size:clamp(14px,3.6vw,18px);font-weight:600;opacity:.85;letter-spacing:1px}
@@ -290,6 +319,17 @@ body.mgworld #eventCard,body.evact #objective{display:none!important}
 #lunch.show{display:flex}
 #debug{position:fixed;left:4px;bottom:4px;z-index:99;background:rgba(0,0,0,.6);color:#0f0;font:12px monospace;padding:4px 6px;border-radius:6px;pointer-events:none;white-space:pre}
 .ava-face{display:block}
+.mgintro{overflow-y:auto;justify-content:safe center}
+.how{text-align:left;max-width:560px;margin:0;padding-left:1.4em;line-height:1.65;font-size:calc(15px + var(--fz))}
+.how li{margin:4px 0}
+.hot{background:rgba(10,20,30,.78);max-width:34%;white-space:normal}
+.hot.shake{animation:shake .35s}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;width:100%}
+.chip{background:rgba(255,255,255,.12);border-radius:16px;padding:4px 10px;font-size:calc(14px + var(--fz))}
+.chip.on{background:var(--ok)}
+.chip.hand{background:rgba(229,72,77,.35)}
+#labels .lab.warn{background:rgba(229,90,26,.92);color:#fff;font-weight:800}
+#labels .lab.safe{background:rgba(47,174,91,.92);color:#fff;font-weight:800}
 /* ---------- 電腦版：字體 +5px，版面同步放寬 ---------- */
 @media (hover:hover) and (pointer:fine) and (min-width:900px){
   :root{--fz:5px}
@@ -1238,15 +1278,23 @@ const World = {
   },
   updateLabels() {
     const cam = this.camera, w = innerWidth, h = innerHeight, p = Player.pos, v = new THREE.Vector3();
-    const show = Game.state === 'play' && !EventManager.handling;
+    const show = Game.state === 'play' && (!EventManager.handling || !!(MiniGames.active && MiniGames.active.world));
+    const cover = Game.state === 'menu' && $('#screen').classList.contains('cover'), sp = cover && $('#screen .cspace'), sr = sp && sp.getBoundingClientRect();
     this.labels.forEach(l => {
       const d = Math.hypot(l.pos.x - p.x, l.pos.z - p.z);
-      let vis = show && d < l.range;
+      let vis = cover ? l.kind === 'zone' : show && d < l.range;
+      l.el.style.pointerEvents = cover ? 'none' : '';
       if (vis) { v.copy(l.pos).project(cam); vis = v.z < 1 && Math.abs(v.x) < 1.05 && Math.abs(v.y) < 1.05; }
+      if (vis && sr) { const sy = (1 - v.y) / 2 * h; const sx = (v.x + 1) / 2 * w; vis = sy > sr.top + 30 && sy < sr.bottom - 36 && sx > sr.left + 40 && sx < sr.right - 40; }
       if (vis) { l.el.style.display = 'block'; l.el.style.left = ((v.x + 1) / 2 * w) + 'px'; l.el.style.top = ((1 - v.y) / 2 * h) + 'px'; }
       else if (l.el.style.display !== 'none') l.el.style.display = 'none';
     });
   },
+  addLabel(text, x, y, z, kind) {
+    const l = { text, pos: V3(x, y, z), range: 60, kind: 'zone', el: document.createElement('div') };
+    l.el.className = 'lab zone ' + (kind || ''); l.el.textContent = text; $('#labels').appendChild(l.el); this.labels.push(l); return l;
+  },
+  removeLabel(l) { const i = this.labels.indexOf(l); if (i >= 0) this.labels.splice(i, 1); if (l.el) l.el.remove(); },
   setGate(open) { this.dyn.gateCol.off = open; this.dyn.gateArmTarget = open ? -Math.PI / 2.1 : 0; },
   // 角色（圓）與 AABB 碰撞，沿牆滑動
   collide(p, r) {
@@ -1382,7 +1430,13 @@ const CameraRig = {
     } else if (this.mode === 'overview') {
       this.cur.lerp(V3(0, 62, 40), 1 - Math.exp(-dt * 1.2)); this.look.lerp(V3(0, 0, -4), 1 - Math.exp(-dt * 1.5));
     } else if (this.mode === 'menu') {
-      Game.menuT = (Game.menuT || 0) + dt * 0.05; this.cur.set(Math.sin(Game.menuT) * 52, 28, Math.cos(Game.menuT) * 52); this.look.set(0, 2, 0);
+      const g = Game; if (g.menuR == null) { const pt = innerWidth < innerHeight; g.menuT = 0.6; g.menuR = pt ? 58 : 46; g.menuH = pt ? 34 : 24; }
+      if (inp && (inp.lookX || inp.lookY || inp.zoom)) {
+        g.menuT -= inp.lookX * 0.006; g.menuH = clamp(g.menuH + inp.lookY * 0.08, 8, 48); g.menuR = clamp(g.menuR + inp.zoom * 3, 26, 62);
+        g.menuIdle = 0; if (!g.menuDragged && (inp.lookX || inp.lookY)) { g.menuDragged = true; const h = $('#dragHint'); if (h) h.classList.add('gone'); }
+      }
+      g.menuIdle = (g.menuIdle || 0) + dt; if (g.menuIdle > 2.5) g.menuT += dt * 0.06;
+      this.cur.lerp(V3(Math.sin(g.menuT) * g.menuR, g.menuH, Math.cos(g.menuT) * g.menuR), 1 - Math.exp(-dt * 6)); this.look.set(0, 2, 0);
     }
     cam.position.copy(this.cur);
     if (this.shake > 0.001) { cam.position.x += (Math.random() - 0.5) * this.shake; cam.position.y += (Math.random() - 0.5) * this.shake; this.shake *= Math.pow(0.02, dt); }
@@ -1958,9 +2012,9 @@ const INSPECTIONS = {
 };
 
 const BADGES = [
-  ['zero', '🛡️', '零事故日', '一天內沒有任何事件惡化到危急'],
+  ['zero', '🛡️', '零事故日', '完成一整天的工作，沒有任何事件惡化到危急'],
   ['eagle', '🦅', '火眼金睛', '一天內找出所有 PPE 違規'],
-  ['speedy', '⚡', '神速應變', '所有事件都在 30 秒內抵達現場'],
+  ['speedy', '⚡', '神速應變', '完成一整天的工作，所有事件都在 30 秒內抵達現場'],
   ['lockout', '🔒', '鎖好了', '上鎖掛牌排序一次全對'],
   ['wind', '🎐', '讀懂風', '可燃氣體事件一次選對撤離方向'],
   ['phoenix', '🔥', '浴火重生', '用時光回溯成功拿回一個事件'],
@@ -1969,7 +2023,9 @@ const BADGES = [
   ['firefighter', '🧯', '滅火達人', '拉瞄壓掃小遊戲一次成功'],
   ['thermal', '🌡️', '熱像高手', '熱像巡檢沒點錯任何干擾點'],
   ['gatekeeper', '📋', '承攬守門員', '許可證對照全部找到'],
-  ['nonearmiss', '🚶', '零虛驚', '一天內沒有發生虛驚事件']
+  ['nonearmiss', '🚶', '零虛驚', '完成一整天的工作，沒有發生虛驚事件'],
+  ['ontime', '⏱️', '準時下班', '17:00 前完成所有巡檢與事件'],
+  ['mission', '💪', '使命必達', '選擇加班，並把當天的工作全部完成']
 ].map(([id, icon, name, cond]) => ({ id, icon, name, cond }));
 const BADGE = {}; BADGES.forEach(b => BADGE[b.id] = b);
 
@@ -1979,7 +2035,7 @@ const PPE_ITEMS = [
   { id: 'goggles', name: '護目鏡', icon: 'goggles', need: true },
   { id: 'gloves', name: '化學防護手套', icon: 'glove', need: true },
   { id: 'shoes', name: '安全鞋', icon: 'boot', need: true },
-  { id: 'earplugs', name: '耳塞', icon: 'earplug', need: true },
+  { id: 'earplugs', name: '耳塞', icon: 'earplug', need: false },
   { id: 'cotton', name: '棉紗手套', icon: 'cotton', need: false, why: '棉紗手套會吸附化學品，不能當化學防護手套。', slot: 'gloves' },
   { id: 'slipper', name: '拖鞋', icon: 'slipper', need: false, why: '拖鞋無法保護腳趾，廠區要穿安全鞋。', slot: 'shoes' },
   { id: 'cap', name: '棒球帽', icon: 'cap', need: false, why: '棒球帽擋不住掉落物，要戴安全帽。', slot: 'helmet' }
@@ -2041,7 +2097,7 @@ function drawWorker(ctx, x, y, s, ppe, opt) {
 const GAME_INFO = {
   dressup: { title: '換裝', goal: '依照今天的工作區域，從置物櫃挑選防護具穿上。', pc: '點擊物品穿上／脫下', mobile: '點一下物品即穿上' },
   pressure: { title: '穩住壓力', goal: '轉動進料閥，把壓力指針維持在綠區，累計 10 秒。', pc: 'A / D 鍵，或拖曳旋鈕', mobile: '在旋鈕上左右滑動，或按 − / +' },
-  evacuate: { title: '帶大家撤離', goal: '走到作業員旁按互動，帶 3 個人到上風處的臨時集合點（綠色圓圈）。別走進黃色氣霧！', pc: 'WASD 移動、E 互動', mobile: '左下搖桿移動、右下互動鍵' },
+  evacuate: { title: '帶大家撤離', goal: '把危險區域（橘色圈）裡的 3 名作業員，帶到上風處的臨時集合點（綠色圈）。別走進黃色氣霧！', pc: 'WASD 移動、E 互動', mobile: '左下搖桿移動、右下互動鍵' },
   listen: { title: '聽音辨病', goal: '先聽現場的泵浦聲，再選出相符的一段。', pc: '點擊播放與選擇', mobile: '點擊播放與選擇' },
   loto: { title: '上鎖掛牌', goal: '你手上有鎖頭和標示牌。依正確順序點擊，把所有能量隔離。', pc: '點擊設備', mobile: '點一下設備' },
   spill: { title: '圍堵大作戰', goal: '先把溝蓋拖到雨水溝上，再沿漏液外圍畫一個封閉的圈放下吸液棉條。', pc: '拖曳溝蓋、按住滑鼠畫線', mobile: '拖曳溝蓋、用手指畫線' },
@@ -2052,6 +2108,23 @@ const GAME_INFO = {
   extinguish: { title: '拉瞄壓掃', goal: '站到正確位置 → 拉插梢 → 瞄準火源底部 → 壓下握把 → 左右掃射。', pc: '移動滑鼠瞄準、按住左鍵（或空白鍵）噴射', mobile: '按住畫面噴射，手指位置就是瞄準點' },
   thermal: { title: '熱像巡檢', goal: '拖曳畫面掃過設備，點出 3 個異常熱點或漏水點。蒸汽管本來就熱！', pc: '拖曳平移、點擊標記（←→ 鍵也可平移）', mobile: '左右滑動平移、點一下標記' },
   permit: { title: '許可證對照', goal: '對照右邊的現場觀察，點出「單子上勾了、現場卻沒做到」的許可項目。', pc: '點擊許可項目', mobile: '點一下許可項目' }
+};
+
+// 遊戲前說明：一步一步怎麼玩
+const GAME_HOW = {
+  dressup: ['點一下物品就能穿上，再點一次可以脫下。', '只挑合格的防護具，置物櫃裡也有不合格的干擾品。', '穿好按「穿好了！」，學長會在閘門前檢查。'],
+  pressure: ['壓力錶的綠色區是安全範圍，指針會一直往紅區飄。', '把「進料閥」轉小，壓力就會下降；轉太多會掉出綠區。', '慢慢、小幅度調整，讓指針在綠區累計 10 秒。', '⚠ 紅框的「安全閥隔離閥」是陷阱，絕對不要按！'],
+  evacuate: ['橘色大圈是危險區域，氣體會往下風處擴散（黃色氣霧）。', '走到圈內作業員旁邊按「互動」，他就會跟著你走。', '把 3 個人都帶到上風處的綠色圈（臨時集合點）。', '⚠ 不要穿過黃色氣霧：在氣霧裡累計超過 3 秒就失敗。'],
+  listen: ['先按「聽現場聲音」，聽泵浦現在的聲音。', '再分別播放 A、B、C 三段聲音做比較。', '選出跟現場一樣的那一段（答錯不扣安全值）。'],
+  loto: ['上鎖掛牌（LOTO）：維修前要把機器的所有能量都隔離，避免有人誤啟動。', '要完成 5 件事：停止運轉、關閉進口閥、關閉出口閥、電源開關上鎖並掛標示、打開排放閥洩掉殘壓。', '點畫面上的設備來執行。順序要自己判斷：順序錯了鎖頭會彈回，並告訴你為什麼危險。', '畫面上有 2 個干擾物（點了扣 3 秒）。全部完成前不要按「開始維修」！'],
+  spill: ['漏液會越流越大，右邊有一條雨水溝。', '先把左下角黃黑色的「溝蓋」拖到雨水溝上蓋住。', '再沿著漏液外圍畫一個圈，頭尾要接起來，就會放下吸液棉條。', '棉條長度有限，畫準一點。⚠ 不要拿水管沖！'],
+  spot: ['畫面上方是這個區域要求的防護具。', '3 位作業員裡，有人少戴或戴錯防護具。', '點他身上有問題的部位：頭、眼睛、耳朵、手或腳。', '穿戴正確的地方不要亂點，點錯扣 2 秒。'],
+  estop: ['機器捲到人了，要立刻讓機器停下來。', '控制面板上有好幾個按鈕，只有一個是急停。', '急停按鈕通常是紅色、蕈狀（像香菇）、有黃色底座。'],
+  firstaid: ['卡片是急救步驟，但順序被打亂了，還混了錯誤的做法。', '用 ↑ ↓ 調整順序，或點兩張卡片交換位置。', '錯誤的做法按 🗑 丟進垃圾桶。', '排好之後按「確認」。'],
+  cpr: ['依序完成五步：① 叫（確認意識）② 叫（呼救）③ 選按壓位置 ④ 壓胸 12 秒 ⑤ 使用 AED。', '壓胸時按空白鍵或點大按鈕，速度每分鐘 100–120 下（大約一秒快兩下）。', '這個小遊戲不限時間。'],
+  extinguish: ['先選站的位置：上風處、離火 1–2 公尺。', '按「拉開安全插梢」。', '把準星移到火焰「底部」，按住畫面（或空白鍵）噴射。', '噴射時左右來回移動＝掃射，火熄得更快。藥劑只有 10 秒。'],
+  thermal: ['畫面是熱像儀看到的設備：越亮（黃、白）越熱，深藍色是冷。', '左右拖曳畫面，可以看到更多設備。', '點出 3 個異常：不正常的亮點，或低溫的漏水痕跡。', '蒸汽管本來就很熱，不是異常，點了扣 3 秒。'],
+  permit: ['左邊（或上面）是工作許可單，每一項都打了勾。', '右邊（或下面）是你在現場實際看到的狀況。', '逐項對照，點出「單子上勾了、現場卻沒做到」的許可項目。', '點錯（現場其實有做到）扣 2 秒。']
 };
 
 const GAMES = {};
@@ -2088,7 +2161,7 @@ GAMES.pressure = (api, P) => {
       const inG = p >= 35 && p <= 65; if (inG) green += dt; if (p > 80) red = true;
       World.setGauge(p / 100);
       api.setInfo('綠區 ' + Math.min(10, green).toFixed(1) + ' / 10 秒');
-      if (green >= 10) api.finish(red ? 'ok' : (t <= 20 ? 'correct' : 'ok'), red ? '完成了，但指針曾經衝進紅區。' : (t <= 20 ? '20 秒內穩住壓力，沒有進紅區！' : '穩住了，但花了比較久的時間。'));
+      if (green >= 10) api.finish(red ? 'ok' : (t <= 40 ? 'correct' : 'ok'), red ? '完成了，但指針曾經衝進紅區。' : (t <= 40 ? '40 秒內穩住壓力，沒有進紅區！' : '穩住了，但花了比較久的時間。'));
       this.draw();
     },
     draw() {
@@ -2137,42 +2210,50 @@ GAMES.loto = (api, P) => {
   const groups = [['stop'], ['inlet', 'outlet'], ['lock'], ['drain']];
   let gi = 0, errs = 0; const done = new Set();
   const T = {
-    stop: { l: '停機按鈕', x: 0.14, y: 0.3 }, inlet: { l: '進口閥', x: 0.22, y: 0.66 }, outlet: { l: '出口閥', x: 0.6, y: 0.2 },
-    lock: { l: '馬達電源開關<br>（上鎖＋標示）', x: 0.86, y: 0.3 }, drain: { l: '排放閥', x: 0.5, y: 0.86 }, gauge: { l: '壓力錶', x: 0.72, y: 0.52, distract: true }, phone: { l: '牆上電話', x: 0.9, y: 0.75, distract: true }
+    stop: { l: '停機按鈕', x: 0.16, y: 0.22 }, inlet: { l: '進口閥', x: 0.18, y: 0.62 }, outlet: { l: '出口閥', x: 0.6, y: 0.13 },
+    lock: { l: '電源開關', x: 0.86, y: 0.3 }, drain: { l: '排放閥', x: 0.5, y: 0.88 }, gauge: { l: '壓力錶', x: 0.75, y: 0.5, distract: true }, phone: { l: '牆上電話', x: 0.86, y: 0.74, distract: true }
   };
-  const why = {
-    inlet: '泵浦還在運轉就關閥，泵浦會空轉、過熱甚至損壞。要先停機。', outlet: '泵浦還在運轉就關閥，泵浦會空轉、過熱甚至損壞。要先停機。',
-    lock: '進出口閥還沒關，管線裡的液體仍可能推動泵浦或倒灌。先隔離管線再斷電上鎖。', drain: '能量還沒全部隔離就開排放閥，液體會持續噴出！'
+  const task = { stop: '停止運轉', inlet: '關閉進口閥', outlet: '關閉出口閥', lock: '電源上鎖＋掛標示', drain: '開排放閥洩殘壓' };
+  const why = k => {
+    if (k === 'inlet' || k === 'outlet') return '泵浦還在運轉就關閥，會空轉、過熱甚至損壞。要先停止運轉。';
+    if (k === 'lock') return gi === 0 ? '機器還在運轉，應先依程序停止運轉，再斷電上鎖。' : '進出口閥還沒關，管線裡的液體仍可能推動泵浦或倒灌。先關閥隔離管線，再斷電上鎖。';
+    if (k === 'drain') return '能量還沒全部隔離就打開排放閥，液體會持續噴出！要等停機、關閥、上鎖都完成。';
+    return '順序不對。';
   };
-  const hot = {};
+  const chips = document.createElement('div'); chips.className = 'chips';
+  chips.innerHTML = '<span class="chip hand">🔒 手上：鎖頭＋標示牌</span>' + shuffle(Object.keys(task)).map(k => '<span class="chip" data-k="' + k + '">☐ ' + task[k] + '</span>').join('');
+  api.foot.appendChild(chips);
   Object.keys(T).forEach(k => {
-    const b = document.createElement('button'); b.className = 'hot' + (k === 'lock' ? ' ' : ''); b.innerHTML = T[k].l; b.style.left = T[k].x * 100 + '%'; b.style.top = T[k].y * 100 + '%';
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'hot'; b.textContent = T[k].l; b.style.left = T[k].x * 100 + '%'; b.style.top = T[k].y * 100 + '%';
     b.onclick = () => {
-      if (T[k].distract) { api.addTime(-3); api.msg('這不是隔離能量的步驟（扣 3 秒）'); AudioFX.wrong(); return; }
+      if (T[k].distract) { api.addTime(-3); api.msg('「' + T[k].l + '」不是隔離能量的步驟（扣 3 秒）'); AudioFX.wrong(); return; }
       if (done.has(k)) return;
       if (groups[gi].indexOf(k) >= 0) {
-        done.add(k); b.classList.add('done'); AudioFX.click();
-        if (groups[gi].every(x => done.has(x))) { gi++; api.msg(gi < groups.length ? '✔ 很好，下一步！' : ''); }
+        done.add(k); b.classList.add('done'); b.textContent = '✔ ' + T[k].l; AudioFX.click();
+        const ch = $('[data-k="' + k + '"]', chips); if (ch) { ch.classList.add('on'); ch.textContent = '✔ ' + task[k]; }
+        if (groups[gi].every(x => done.has(x))) { gi++; api.msg(gi < groups.length ? '✔ 很好，繼續下一步！' : '✔ 所有能量都隔離了！'); }
         if (gi >= groups.length) api.finish(errs === 0 ? 'correct' : errs === 1 ? 'ok' : 'wrong', errs === 0 ? '停機 → 關閉進出口閥 → 斷電上鎖並掛標示 → 釋放殘壓，一次全對！' : '完成了，但順序錯了 ' + errs + ' 次。正確是：停機 → 關閉進出口閥 → 斷電上鎖掛牌 → 釋放殘壓。');
-      } else { errs++; AudioFX.wrong(); b.classList.add('pitem', 'bad'); setTimeout(() => b.classList.remove('bad'), 400); api.msg('🔒 鎖頭彈回！' + (why[k] || '順序不對。')); }
+      } else { errs++; AudioFX.wrong(); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); api.msg('🔒 鎖頭彈回！' + why(k)); }
     };
-    api.body.appendChild(b); hot[k] = b;
+    api.body.appendChild(b);
   });
   api.foot.appendChild(btn('🔧 開始維修', 'warn', () => { if (gi < groups.length) api.finish('danger', '還沒完成上鎖掛牌就開始維修，機器隨時可能被誤啟動！'); }));
   return {
     update() {
       c.fit(); const x = c.ctx, W = c.W, H = c.H; x.clearRect(0, 0, W, H); x.fillStyle = '#20364c'; x.fillRect(0, 0, W, H);
-      x.strokeStyle = '#ff8a00'; x.lineWidth = Math.max(8, W * 0.02);
-      x.beginPath(); x.moveTo(0, H * 0.66); x.lineTo(W * 0.42, H * 0.66); x.stroke();
-      x.beginPath(); x.moveTo(W * 0.48, H * 0.55); x.lineTo(W * 0.48, H * 0.2); x.lineTo(W, H * 0.2); x.stroke();
-      x.beginPath(); x.moveTo(W * 0.48, H * 0.72); x.lineTo(W * 0.48, H * 0.86); x.stroke();
-      x.fillStyle = '#3d8fe0'; x.beginPath(); x.arc(W * 0.46, H * 0.64, Math.min(W, H) * 0.1, 0, 7); x.fill();
-      x.fillStyle = '#f5b400'; x.fillRect(W * 0.55, H * 0.58, W * 0.05, H * 0.12);
-      x.fillStyle = done.has('stop') ? '#2c5f8a' : '#2c8f5a'; x.fillRect(W * 0.6, H * 0.55, W * 0.18, H * 0.18);
-      x.fillStyle = '#556'; x.fillRect(W * 0.8, H * 0.18, W * 0.12, H * 0.25);
-      x.fillStyle = '#c9ced4'; x.fillRect(W * 0.07, H * 0.18, W * 0.14, H * 0.22);
-      x.fillStyle = '#fff'; x.font = '' + (14 + FZ) + 'px sans-serif'; x.textAlign = 'center'; x.fillText(done.has('stop') ? '已停機' : '運轉中', W * 0.69, H * 0.78);
-      api.setInfo('第 ' + Math.min(gi + 1, 4) + ' / 4 步　錯誤 ' + errs);
+      const lw = Math.max(8, Math.min(W, H) * 0.03); x.strokeStyle = '#ff8a00'; x.lineWidth = lw; x.lineCap = 'round';
+      const px = W * 0.46, py = H * 0.55, pr = Math.min(W, H) * 0.1;
+      x.beginPath(); x.moveTo(W * 0.04, py); x.lineTo(px - pr, py); x.stroke();
+      x.beginPath(); x.moveTo(px, py - pr); x.lineTo(px, H * 0.13); x.lineTo(W * 0.96, H * 0.13); x.stroke();
+      x.beginPath(); x.moveTo(px, py + pr); x.lineTo(px, H * 0.84); x.stroke();
+      x.fillStyle = '#3d8fe0'; x.beginPath(); x.arc(px, py, pr, 0, 7); x.fill();
+      x.fillStyle = '#f5b400'; x.fillRect(px + pr, py - pr * 0.4, pr * 0.6, pr * 0.8);
+      x.fillStyle = done.has('stop') ? '#2c5f8a' : '#2c8f5a'; x.fillRect(px + pr * 1.6, py - pr * 0.9, Math.min(W * 0.2, pr * 2.4), pr * 1.8);
+      x.fillStyle = '#fff'; x.font = 'bold ' + (14 + FZ) + 'px sans-serif'; x.textAlign = 'center';
+      x.fillText('泵浦', px, py + 5); x.fillText(done.has('stop') ? '馬達：已停機' : '馬達：運轉中', px + pr * 1.6 + Math.min(W * 0.1, pr * 1.2), py + pr * 0.9 + 20);
+      x.fillStyle = '#556'; x.fillRect(W * 0.78, H * 0.2, W * 0.16, H * 0.2);
+      if (done.has('lock')) { x.fillStyle = '#e5484d'; x.fillRect(W * 0.84, H * 0.33, W * 0.04, H * 0.05); }
+      api.setInfo('完成 ' + done.size + ' / 5　錯誤 ' + errs);
     },
     timeout() { return ['wrong', '超過時間，上鎖掛牌沒有完成。']; }
   };
@@ -2220,7 +2301,7 @@ GAMES.spill = (api, P) => {
   return {
     update(dt) {
       t += dt; c.fit(); const l = L(), x = c.ctx, W = c.W, H = c.H;
-      if (!done) r += dt * (startGap() - 26) / (15 / dn) * (hose ? 3 : 1);
+      if (!done) r += dt * (startGap() - 26) / (30 / dn) * (hose ? 3 : 1);
       const reach = Math.hypot(l.dx - l.sx, l.dy - l.sy) - 34;
       if (!done && !covered && r * 1.15 >= reach) { done = true; api.finish('wrong', '漏液流進雨水溝了！化學品會流到廠外污染環境。'); }
       if (covered) r = Math.min(r, reach / 1.15);
@@ -2597,6 +2678,11 @@ GAMES.evacuate = (api, P) => {
   const ring = new THREE.Mesh(new THREE.RingGeometry(2.6, 3.2, 32), new THREE.MeshBasicMaterial({ color: 0x2fff8a, transparent: true, opacity: 0.85, side: THREE.DoubleSide }));
   ring.rotation.x = -Math.PI / 2; ring.position.set(T[0], 0.06, T[1]); World.scene.add(ring);
   Game.tempTarget = { x: T[0], z: T[1] };
+  const zone = new THREE.Mesh(new THREE.RingGeometry(9.4, 10, 64), new THREE.MeshBasicMaterial({ color: 0xff7a1a, transparent: true, opacity: 0.8, side: THREE.DoubleSide, depthWrite: false }));
+  zone.rotation.x = -Math.PI / 2; zone.position.set(L[0], 0.07, L[2]); World.scene.add(zone);
+  const zoneFill = new THREE.Mesh(new THREE.CircleGeometry(9.4, 48), new THREE.MeshBasicMaterial({ color: 0xff7a1a, transparent: true, opacity: 0.08, depthWrite: false }));
+  zoneFill.rotation.x = -Math.PI / 2; zoneFill.position.set(L[0], 0.05, L[2]); World.scene.add(zoneFill);
+  const labs = [World.addLabel('⚠ 危險區域：把裡面的人帶出來', L[0], 3.2, L[2], 'warn'), World.addLabel('✅ 上風處臨時集合點', T[0], 2.6, T[1], 'safe')];
   const spots = [[cross[0] * 7 + down[0] * 3, cross[1] * 7 + down[1] * 3], [-cross[0] * 7 + down[0] * 4, -cross[1] * 7 + down[1] * 4], [down[0] * 3 + cross[0] * 2.5 - from[0] * 2, down[1] * 3 + cross[1] * 2.5 - from[1] * 2]];
   const workers = spots.map(s => {
     let x = L[0] + s[0], z = L[2] + s[1]; for (let k = 0; k < 10 && !World.pointFree(x, z, 0.6); k++) { x += from[0] * 1.2; z += from[1] * 1.2; }
@@ -2609,7 +2695,7 @@ GAMES.evacuate = (api, P) => {
   return {
     world: true,
     update(dt, tt) {
-      t += dt; gas.setExtent(3 + t * 1.15 * dn, Math.min(5, 1.8 + t * 0.09 * dn));
+      t += dt; gas.setExtent(Math.min(16, 3 + t * 0.6 * dn), Math.min(5, 1.8 + t * 0.05 * dn));
       const inGas = gas.contains(Player.pos.x, Player.pos.z);
       if (inGas) { gasT += dt; beepT -= dt; if (beepT <= 0) { beepT = 0.18; AudioFX.beep(1800, 0.1); } api.msg('⚠ 你在氣霧裡！快離開（' + gasT.toFixed(1) + ' 秒）'); }
       $('#tint').style.background = inGas ? 'rgba(240,210,40,.35)' : 'rgba(240,210,40,0)';
@@ -2620,7 +2706,7 @@ GAMES.evacuate = (api, P) => {
       else if (!ended && delivered >= 3) { ended = true; api.finish(gasT > 0 ? 'ok' : 'correct', gasT > 0 ? '3 人都帶到了，但你曾經走進氣霧（' + gasT.toFixed(1) + ' 秒）。' : '3 人全部帶到上風處，也沒有走進氣霧！'); }
     },
     timeout() { return delivered >= 2 && gasT <= 3 ? ['ok', '時間到，帶到了 ' + delivered + ' 人。'] : ['wrong', '時間到，只帶到 ' + delivered + ' 人。']; },
-    destroy() { World.scene.remove(ring); ring.material.dispose(); ring.geometry.dispose(); inters.forEach(i => Game.removeInteract(i)); $('#tint').style.background = 'rgba(240,210,40,0)'; Game.tempTarget = null; workers.forEach(n => { if (n.state === 'follow' || n.state === 'face') { n.state = 'goto'; n.target = [T[0] + rand(-1.5, 1.5), T[1] + rand(-1.5, 1.5)]; n.speed = 3; } }); }
+    destroy() { [zone, zoneFill].forEach(m => { World.scene.remove(m); m.material.dispose(); m.geometry.dispose(); }); labs.forEach(l => World.removeLabel(l)); World.scene.remove(ring); ring.material.dispose(); ring.geometry.dispose(); inters.forEach(i => Game.removeInteract(i)); $('#tint').style.background = 'rgba(240,210,40,0)'; Game.tempTarget = null; workers.forEach(n => { if (n.state === 'follow' || n.state === 'face') { n.state = 'goto'; n.target = [T[0] + rand(-1.5, 1.5), T[1] + rand(-1.5, 1.5)]; n.speed = 3; } }); }
   };
 };
 
@@ -2628,7 +2714,7 @@ GAMES.evacuate = (api, P) => {
 GAMES.dressup = (api, P) => {
   const worn = {};
   const d = document.createElement('div'); d.className = 'mgdom';
-  d.innerHTML = '<div style="font-size:calc(15px + var(--fz));margin-bottom:8px">' + Glossary.markup('學長：「今天你要跟我巡反應器區和泵浦房。泵浦房很吵、還會碰到化學品，PPE 要穿齊喔！」') + '</div>';
+  d.innerHTML = '<div style="font-size:calc(15px + var(--fz));margin-bottom:8px">' + Glossary.markup('學長：「今天要在廠區巡檢，會經過反應器和化學品區域。挑好合格的 PPE 再出發！」') + '</div>';
   d.style.display = 'flex'; d.style.flexDirection = 'column';
   const box = document.createElement('div'); box.className = 'dress';
   const locker = document.createElement('div'); locker.className = 'locker';
@@ -2652,7 +2738,7 @@ GAMES.dressup = (api, P) => {
   });
   const fin = btn('穿好了！', 'green', () => {
     if (done) return; done = true; doll.classList.add('spin'); AudioFX.success();
-    const miss = PPE_ITEMS.filter(i => i.need && !worn[i.id]).map(i => i.name), wrong = PPE_ITEMS.filter(i => !i.need && worn[i.id]).map(i => i.name);
+    const miss = PPE_ITEMS.filter(i => i.need && !worn[i.id]).map(i => i.name), wrong = PPE_ITEMS.filter(i => !i.need && i.why && worn[i.id]).map(i => i.name);
     flash = 2.5;
     setTimeout(() => api.finish(miss.length ? 'ok' : 'correct', miss.length ? '還缺：' + miss.join('、') + (wrong.length ? '；而且「' + wrong.join('、') + '」不是合格防護具' : '') + '。' : '防護具穿戴完整，出發！', { worn: Object.assign({}, worn) }), 1300);
   });
@@ -2663,7 +2749,7 @@ GAMES.dressup = (api, P) => {
       dc.fit(); const x = dc.ctx, W = dc.W, H = dc.H; x.clearRect(0, 0, W, H);
       const s = Math.min(W / 1.4, H * 0.4); const hit = drawWorker(x, W / 2, H * 0.05 + s * 0.84, s, ppeOf(), {});
       if (flash > 0) {
-        flash -= dt; const on = Math.sin(flash * 18) > 0, miss = { helmet: 'head', goggles: 'eyes', earplugs: 'ears', gloves: 'hands', shoes: 'feet' };
+        flash -= dt; const on = Math.sin(flash * 18) > 0, miss = { helmet: 'head', goggles: 'eyes', gloves: 'hands', shoes: 'feet' };
         if (on) Object.keys(miss).forEach(k => { if (!worn[k]) { const r = hit[miss[k]]; x.strokeStyle = '#ff4d4d'; x.lineWidth = 4; x.beginPath(); x.arc(r.x, r.y, r.r * 0.9, 0, 7); x.stroke(); } });
       }
     }
@@ -2681,7 +2767,7 @@ const MiniGames = {
         $('#mgBody').innerHTML = ''; $('#mgFoot').innerHTML = ''; $('#mgInfo').textContent = '';
         mg.classList.add('show'); mg.classList.remove('world'); $('#mgTitle').textContent = '🎮 ' + info.title;
         const intro = document.createElement('div'); intro.className = 'mgintro';
-        intro.innerHTML = '<h2>' + esc(info.title) + '</h2><div class="goal">' + Glossary.markup(info.goal) + '</div><div class="ctl"><div>🖱️ 桌機：' + esc(info.pc) + '</div><div>👆 手機：' + esc(info.mobile) + '</div></div>' + (retried ? '<div style="color:#ffd166">再試一次：這一步最高為「可接受」</div>' : '');
+        intro.innerHTML = '<h2>' + esc(info.title) + '</h2><div class="goal">' + Glossary.markup(info.goal) + '</div>' + (GAME_HOW[name] ? '<ol class="how">' + GAME_HOW[name].map(t => '<li>' + Glossary.markup(t) + '</li>').join('') + '</ol>' : '') + (this.timeFor(name, params) ? '<div style="opacity:.8">⏱ 限時 ' + this.timeFor(name, params) + ' 秒</div>' : '') + '<div class="ctl"><div>🖱️ 桌機：' + esc(info.pc) + '</div><div>👆 手機：' + esc(info.mobile) + '</div></div>' + (retried ? '<div style="color:#ffd166">再試一次：這一步最高為「可接受」</div>' : '');
         intro.appendChild(btn('開始', 'warn', () => countdown(intro)));
         $('#mgBody').appendChild(intro); $('#mgTimer').style.visibility = 'hidden';
         Game.block('mgintro');
@@ -2729,7 +2815,7 @@ const MiniGames = {
   },
   timeFor(name, p) {
     const r = p.rank || 0;
-    return { pressure: 35 - r * 3, evacuate: 45 - r * 4, listen: 40, loto: 30 - r * 2, spill: 30 - r * 2, spot: 20 - r, estop: 5 - r * 0.5, firstaid: 45 - r * 3, cpr: 0, extinguish: 30 - r * 2, thermal: 25 - r * 2, permit: 20 - r, dressup: 0 }[name] || 0;
+    return { pressure: 70 - r * 6, evacuate: 90 - r * 8, listen: 80, loto: 60 - r * 4, spill: 60 - r * 4, spot: 40 - r * 2, estop: 10 - r, firstaid: 90 - r * 6, cpr: 0, extinguish: 60 - r * 4, thermal: 50 - r * 4, permit: 40 - r * 2, dressup: 0 }[name] || 0;
   },
   update(dt, t) {
     const a = this.active; if (!a) return;
@@ -2816,7 +2902,8 @@ const EventManager = {
   plan(day) {
     const rank = Save.data.rank, count = day.challenge ? 6 : rank >= 1 ? 5 : 4;
     const unplayed = shuffle(EVENTS.filter(e => Save.data.played.indexOf(e.id) < 0)), played = shuffle(EVENTS.filter(e => Save.data.played.indexOf(e.id) >= 0));
-    const cats = unplayed.concat(played).slice(0, count);
+    // 可燃氣體（帶大家撤離）每局必出，早上的風向才有意義
+    const cats = [EVENT.gas].concat(unplayed.concat(played).filter(e => e.id !== 'gas').slice(0, count - 1));
     const list = cats.map(def => this.makeEvent(def, day));
     const alarm = list.filter(e => !e.def.silent);
     const times = this.schedule(alarm.length, day.night ? 45 : 60);
@@ -2833,6 +2920,15 @@ const EventManager = {
       const z = pick(v.zones), sp = VIOLATOR_SPOTS[z];
       loc = { zone: z, p: sp, focus: [sp[0], 1.3, sp[1]], cam: [sp[0] + 2.4, 2.4, sp[1] + 3.6], fx: [sp[0], 0.5, sp[1]], npc: sp };
     } else loc = LOCS[locKey];
+    if (def.id === 'gas') {
+      // 處理位置放在洩漏點的側風方向約 11 公尺外，不站在氣體裡
+      const lx = loc.fx[0], lz = loc.fx[2], f = DIRS[day.windFrom].v, c = [-f[1], f[0]];
+      let p = null;
+      for (const d of [11, 12, 10, 13, 9, 14]) { for (const s of [1, -1]) { const x = lx + c[0] * d * s + f[0] * 2, z = lz + c[1] * d * s + f[1] * 2; if (!p && Math.abs(x) < 37 && Math.abs(z) < 37 && World.pointFree(x, z, 1.2)) p = [x, z]; } }
+      if (!p) p = [clamp(lx + f[0] * 12, -36, 36), clamp(lz + f[1] * 12, -36, 36)];
+      const dx = p[0] - lx, dz = p[1] - lz, dl = Math.hypot(dx, dz) || 1;
+      loc = Object.assign({}, loc, { p, focus: [lx, 1, lz], cam: [p[0] + dx / dl * 5, 4.6, p[1] + dz / dl * 5] });
+    }
     return { def, id: def.id, variant: v, vars, loc, zone: loc.zone, time: null, state: 'scheduled', level: 0, maxLevel: 0, perfect: true, hintUsed: false, rewound: false, accident: false, late: false, trigT: 0, arrive: null, log: [], flags: { splash: v.id === 'naoh' && Math.random() < 0.3 }, stars: 0 };
   },
   schedule(n, gap) {
@@ -3147,18 +3243,30 @@ const Decision = {
   better(ev) { const s = ev.log.length ? ev.log[ev.log.length - 1] : null; const st = EventManager.stepsFor(ev).find(x => s && fmt(x.prompt, ev.vars) === s.prompt); return st ? EventManager.rightAnswer(ev, st) : ''; }
 };
 
-// ===== Clock（遊戲時鐘、排程、午休） =====
+// ===== Clock（遊戲時鐘、午休、下班與加班） =====
+// 時鐘照常走（現實 1 秒 = 遊戲 1 分鐘），事件處理中暫停；每巡檢一處額外多花 30 分鐘
+// 17:00 還有工作沒完成：可選擇「加班」或「請晚班學長幫忙」
 const Clock = {
-  min: 480, running: false, speed: 1, skyT: 0,
+  min: 480, running: false, speed: 1, skyT: 0, free: false, overtime: false, asked: false,
+  advance(m, why) {
+    if (!Game.day) return;
+    this.min += m; World.setSky(this.min); UI.clock();
+    if (why) UI.toast('⏱ ' + why + '，花了 ' + m + ' 分鐘（現在 ' + hhmm(this.min) + '）');
+    this.checkLunch();
+  },
+  checkLunch() { const day = Game.day; if (day && !day.lunchDone && this.min >= 720) { Game.lunch(this.min - 720); return true; } return false; },
   update(dt) {
     const day = Game.day; if (!this.running || !day) return;
     if (EventManager.pending || EventManager.handling) return;
     this.min += dt * this.speed;
     this.skyT += dt; if (this.skyT > 3) { this.skyT = 0; World.setSky(this.min); }
-    if (!day.lunchDone && this.min >= 720) { day.lunchDone = true; Game.lunch(); return; }
-    const next = day.events.find(e => e.state === 'scheduled' && e.time != null && e.time <= this.min);
-    if (next) EventManager.trigger(next);
-    if (this.min >= 1020) { this.min = 1020; this.running = false; Game.endDay(false); }
+    if (this.checkLunch()) return;
+    if (this.min >= 1020 && !this.overtime) {
+      if (Game.workLeft().total > 0 && !this.asked) { this.asked = true; Game.askOvertime(); }
+      else if (!Game.workLeft().total) { this.running = false; Game.endDay(false); }
+    }
+    // 加班最晚到 21:00，之後自動交接給晚班學長
+    if (this.overtime && this.min >= 1260) { this.running = false; Game.day.handover = Game.workLeft(); Game.endDay(false); }
   }
 };
 
@@ -3228,17 +3336,21 @@ const UI = {
   menu() {
     const d = Save.data, r = d.rank, nx = RANKS[r + 1], cur = RANKS[r];
     const pct = nx ? Math.min(100, (d.xp - cur.xp) / (nx.xp - cur.xp) * 100) : 100;
-    const s = this.show('<div class="wrap"><div class="title">化工人的一天<small>3D 工安教育遊戲・第一天上班的新進工程師</small></div>' +
-      '<div class="card"><div class="stats">' +
+    const desk = matchMedia('(hover:hover) and (pointer:fine)').matches;
+    const s = this.show('<div class="wrap"><div class="hero"><div class="title">化工人的一天<span class="b3d">3D</span><small>3D 工安教育遊戲・第一天上班的新進工程師</small></div>' +
+      '</div>' +
+      '<div class="cspace"><div class="dragHint" id="dragHint">' + (desk ? '🖱️ 拖曳滑鼠旋轉廠區・滾輪縮放' : '👆 拖曳畫面，360° 看看廠區') + '</div></div>' +
+      '<div class="cpanel"><div class="stats">' +
       '<div class="stat"><div class="k">職級</div><div class="v">' + cur.name + '</div></div>' +
       '<div class="stat"><div class="k">知識圖鑑</div><div class="v">' + d.cards.length + ' / ' + CARDS.length + '</div></div>' +
       '<div class="stat"><div class="k">最佳評等</div><div class="v">' + (d.bestGrade || '—') + '</div></div>' +
-      '<div class="stat"><div class="k">連續無事故天數</div><div class="v">' + d.noAccidentStreak + ' 天</div></div></div>' +
-      '<div style="margin-top:10px;font-size:calc(14px + var(--fz))">XP ' + d.xp + (nx ? ' / ' + nx.xp + '（下一級：' + nx.name + '，解鎖' + nx.unlock + '）' : '（最高職級）') + '</div><div class="xpbar"><i style="width:' + pct + '%"></i></div>' +
-      '<div style="font-size:calc(13px + var(--fz));color:var(--ink2)">已工作 ' + d.days + ' 天・徽章 ' + d.badges.length + ' / ' + BADGES.length + '・名詞小辭典 ' + d.terms.length + ' / ' + TERMS.length + '</div>' +
-      (r >= 2 ? '<label style="display:flex;gap:8px;align-items:center;margin-top:10px;min-height:44px"><input type="checkbox" id="optNight" style="width:24px;height:24px"> 🌙 夜班模式（場景變夜晚、事件間隔縮短）</label>' : '') +
+      '<div class="stat"><div class="k">無事故</div><div class="v">' + d.noAccidentStreak + ' 天</div></div></div>' +
+      '<div style="margin-top:8px;font-size:calc(13px + var(--fz))">XP ' + d.xp + (nx ? ' / ' + nx.xp + '（下一級：' + nx.name + '，解鎖' + nx.unlock + '）' : '（最高職級）') + '</div><div class="xpbar"><i style="width:' + pct + '%"></i></div>' +
+      '<div style="font-size:calc(12px + var(--fz));opacity:.75">已工作 ' + d.days + ' 天・徽章 ' + d.badges.length + ' / ' + BADGES.length + '・名詞小辭典 ' + d.terms.length + ' / ' + TERMS.length + '</div>' +
+      (r >= 2 ? '<label style="display:flex;gap:8px;align-items:center;margin-top:8px;min-height:44px"><input type="checkbox" id="optNight" style="width:24px;height:24px"> 🌙 夜班模式（場景變夜晚、事件間隔縮短）</label>' : '') +
       (r >= 3 ? '<label style="display:flex;gap:8px;align-items:center;min-height:44px"><input type="checkbox" id="optSix" style="width:24px;height:24px"> 🏆 一日 6 事件挑戰模式</label>' : '') +
-      '</div><div class="menuBtns"></div><p style="font-size:calc(13px + var(--fz));opacity:.75;text-align:center;margin-top:16px">遊戲中所有<span class="term lt" style="cursor:default">藍色虛線</span>名詞都可以點開看白話解釋。<br>本遊戲為教育用途，內容以官方法規與指引為準；實際作業請遵守公司規定。</p></div>');
+      '<div class="menuBtns"></div><p class="note">遊戲中所有<span class="term lt" style="cursor:default">藍色虛線</span>名詞都可以點開看白話解釋。<br>本遊戲為教育用途，內容以官方法規與指引為準；實際作業請遵守公司規定。</p></div></div>', 'cover');
+    Game.menuDragged = false;
     const mb = $('.menuBtns', s);
     mb.appendChild(btn('🦺 ' + TEXT.start, 'warn', () => Game.startDay({ night: !!($('#optNight') && $('#optNight').checked), challenge: !!($('#optSix') && $('#optSix').checked) })));
     const row = document.createElement('div'); row.className = 'row2';
@@ -3438,12 +3550,12 @@ const Game = {
     if (k === 'm' && this.state === 'play' && !this.blocks.has('pause')) UI.toggleMap();
     if (DEBUG && this.state === 'play') {
       if (/^[1-9]$/.test(k) && EVENTS[+k - 1]) { if (this.day.phase !== 'work') this.skipIntro(); EventManager.debugTrigger(EVENTS[+k - 1]); }
-      if (k === 'f') Clock.min = Math.min(1015, Clock.min + 30);
-      if (k === 't') Clock.min = 1015;
+      if (k === 'f') Clock.advance(30, '快轉');
+      if (k === 't') Clock.min = Math.max(Clock.min, 1015);
       if (k === 'g' && this.day.phase !== 'work') this.skipIntro();
     }
   },
-  skipIntro() { Player.setPPE({ helmet: true, goggles: true, gloves: true, shoes: true, earplugs: true }); this.day.worn = { helmet: 1, goggles: 1, gloves: 1, shoes: 1, earplugs: 1 }; World.setGate(true); this.day.phase = 'work'; Clock.min = Math.max(Clock.min, 540); Clock.running = true; NPCs.senior.state = 'goto'; NPCs.senior.target = [-22, 25.8]; Player.pos.set(0, 0, 26); UI.objective('巡檢廠區：走到綠色巡檢點打卡。發生異常時，趕到現場處理！'); },
+  skipIntro() { Player.setPPE({ helmet: true, goggles: true, gloves: true, shoes: true, earplugs: true }); this.day.worn = { helmet: 1, goggles: 1, gloves: 1, shoes: 1, earplugs: 1 }; World.setGate(true); this.day.phase = 'work'; Clock.min = Math.max(Clock.min, 540); Clock.running = true; Clock.free = false; Clock.overtime = false; Clock.asked = false; NPCs.senior.state = 'goto'; NPCs.senior.target = [-22, 25.8]; Player.pos.set(0, 0, 26); this.updateObjective(); },
   // ---------- 開始一天 ----------
   startDay(opt) {
     opt = opt || {}; AudioFX.init(); AudioFX.startAmbient();
@@ -3453,8 +3565,13 @@ const Game = {
     const day = this.day = { safety: 100, hints: 3, xp: 0, windFrom: randi(0, 7), weather: w[0], temp: w[1] + randi(-1, 2), night: !!opt.night && rank >= 2, challenge: !!opt.challenge && rank >= 3,
       phase: 'dress', worn: {}, acceptedAccidents: 0, gradeCap: 'S', nearMiss: 0, maxLevel: 0, newCards: [], seenCards: [], mistakes: [], flags: {}, accidentHappened: false, lunchDone: false, ppeFound: false, violators: [], inspected: 0 };
     day.events = EventManager.plan(day);
+    const nAlarm = day.events.filter(e => !e.def.silent).length;
+    for (let k = 0; k < 200; k++) { let pos = 0; const at = []; for (let i = 0; i < nAlarm; i++) { pos += Math.random() < 0.5 ? 1 : 2; at.push(pos); } if (pos <= INSPECT_POINTS.length) { day.triggerAt = at; break; } }
+    if (!day.triggerAt) day.triggerAt = Array.from({ length: nAlarm }, (_, i) => i + 1);
+    day.eventMin = clamp(Math.round((390 - INSPECT_POINTS.length * 30) / Math.max(1, nAlarm) / 5) * 5, 30, 60);
+    day.triggerQueue = 0;
     World.setNight(day.night); World.setSky(480); World.setGate(false); World.dyn.gateArm.rotation.z = 0;
-    Clock.min = 480; Clock.running = false; Clock.speed = DEBUG ? 1 : 1;
+    Clock.min = 480; Clock.running = false; Clock.free = false; Clock.overtime = false; Clock.asked = false;
     Player.reset(1.2, 35.2, -Math.PI / 2); Player.setPPE({}); Player.frozen = false; CameraRig.yaw = Math.PI / 2; CameraRig.pitch = 0.5; CameraRig.dist = 7; CameraRig.cur.set(8, 4, 35.2); CameraRig.follow(); CameraRig.setOffset(null);
     // NPC：學長與作業員
     const sen = NPCs.senior = NPCs.spawn({ x: 2.6, z: 31.7, vest: true, ppe: { helmet: 'white', goggles: true, gloves: 'chem', shoes: true }, name: '學長', yaw: 0 }); sen.state = 'face';
@@ -3502,7 +3619,7 @@ const Game = {
   gateCheck() {
     const day = this.day; if (day.phase !== 'dress') return;
     if (Math.hypot(Player.pos.x, Player.pos.z - 30.6) > 2.2 || this._gateBusy) return;
-    const w = day.worn, miss = PPE_ITEMS.filter(i => i.need && !w[i.id]), bad = PPE_ITEMS.filter(i => !i.need && w[i.id]);
+    const w = day.worn, miss = PPE_ITEMS.filter(i => i.need && !w[i.id]), bad = PPE_ITEMS.filter(i => !i.need && i.why && w[i.id]);
     this._gateBusy = true;
     if (miss.length || bad.length) {
       const lines = ['等一下！' + (miss.length ? '你還沒穿戴：' + miss.map(i => i.name).join('、') + '。' : '')];
@@ -3514,10 +3631,11 @@ const Game = {
       UI.dialog(['很好，防護具都穿齊了！閘門開了，我們先開個工具箱會議。',
         '今天天氣' + day.weather + '，氣溫大約 ' + day.temp + ' 度；吹' + DIRS[day.windFrom].n + '風，風從' + DIRS[day.windFrom].n + '方吹來。看到風向袋，就知道哪邊是下風處。',
         '記住：遇到異常先通報控制室，確保自身安全，不要一個人冒險。',
-        '接下來你自由巡檢，綠色圓圈是巡檢點。有突發事件時，90 秒內趕到現場處理！']).then(() => {
+        '還有，在廠區走路一定要沿著黃色斑馬線的人行道走，堆高機的作業範圍不要靠近，它倒車時看不到你。',
+        '接下來去巡檢：綠色圓圈是巡檢點，每巡檢一處大約 30 分鐘。有突發事件時，90 秒內趕到現場處理！']).then(() => {
         this.unlockCard('toolbox'); this._gateBusy = false; day.phase = 'work'; Clock.min = 540; Clock.running = true;
         NPCs.senior.state = 'goto'; NPCs.senior.target = [-22, 25.8]; NPCs.senior.speed = 1.6; NPCs.senior.onArrive = n => { n.state = 'face'; };
-        UI.objective('巡檢廠區：走到綠色巡檢點打卡。發生異常時，趕到現場處理！');
+        this.updateObjective();
         if (Save.data.firstPlay) { Save.data.firstPlay = false; Save.save(); }
       });
     }
@@ -3529,6 +3647,50 @@ const Game = {
       p.done = true; day.xp += 10; day.inspected++; this.unlockCard('autocheck'); UI.toast('✅ 自動檢查完成　+10 XP'); AudioFX.success();
     } else { p.done = true; day.xp += 10; day.inspected++; AudioFX.correct(); UI.toast('📍 巡檢打卡 +10 XP｜💡 ' + pick(INSPECT_FACTS), 5200); }
     p.mesh.material.color.set(0x8a96a3); p.mesh.material.opacity = 0.35;
+    Clock.advance(30, '巡檢「' + p.name + '」');
+    day.triggerAt.forEach(n => { if (n === day.inspected) day.triggerQueue++; });
+    this.updateObjective();
+  },
+  updateObjective() {
+    const day = this.day; if (!day || day.phase !== 'work') return;
+    const left = day.points.filter(p => !p.done).length;
+    if (Clock.overtime) UI.objective('⏰ 加班中：還有 ' + left + ' 個巡檢點' + (this.workLeft().events ? '、' + this.workLeft().events + ' 個事件' : '') + '，完成就可以下班。');
+    else if (Clock.free) UI.objective('🧭 自由探索：今天的巡檢都完成了！在廠區逛逛、找學長聊天，17:00 下班。');
+    else UI.objective('巡檢廠區：還有 ' + left + ' 個巡檢點（綠色圓圈），每巡檢一處多花 30 分鐘，17:00 前完成！');
+  },
+  // 還沒完成的工作：巡檢點與尚未發生的事件（事件跟著巡檢觸發）
+  workLeft() {
+    const day = this.day; if (!day) return { points: 0, events: 0, total: 0 };
+    const points = day.points.filter(p => !p.done).length, events = day.events.filter(e => e.state === 'scheduled' && !e.def.silent).length;
+    return { points, events, total: points + events };
+  },
+  askOvertime() {
+    const w = this.workLeft();
+    const b = UI.modal('<div style="text-align:center"><div style="font-size:48px">🕔</div><h3>17:00 下班時間到了！</h3><p style="line-height:1.7">今天還有 <b>' + w.points + ' 個巡檢點</b>' + (w.events ? '和 <b>' + w.events + ' 個待處理的狀況</b>' : '') + '還沒完成。</p></div><div class="menuBtns"></div>');
+    const mb = $('.menuBtns', b);
+    mb.appendChild(btn('⏰ 加班，把今天的工作做完', 'warn', () => {
+      UI.closeModal(); Clock.overtime = true; this.day.overtime = true; this.updateObjective();
+      UI.toast('⏰ 加班中：完成剩下的工作就可以下班（最晚到 21:00）', 4500);
+    }));
+    mb.appendChild(btn('🌙 請晚班學長幫忙，明天一定會按時完成', 'sec', () => {
+      UI.closeModal(); this.day.handover = w; Clock.running = false; this.endDay(false);
+    }));
+  },
+  // 巡檢主線推進：排隊中的事件依序觸發；巡檢與事件都完成後進入自由探索
+  updateFlow() {
+    const day = this.day; if (!day || day.phase !== 'work' || this.blocked() || EventManager.pending || EventManager.handling) return;
+    if (day.triggerQueue > 0) {
+      if ((day.queueDelay = (day.queueDelay || 0) + 1) < 90) return;
+      day.queueDelay = 0;
+      const next = day.events.find(e => e.state === 'scheduled' && !e.def.silent);
+      day.triggerQueue--; if (next) EventManager.trigger(next);
+      return;
+    }
+    if (!Clock.free && !this.workLeft().total) {
+      if (Clock.overtime) { this.day.overtimeTo = Clock.min; UI.toast('🎉 加班完成，下班囉！', 3000); Clock.running = false; setTimeout(() => this.endDay(false), 1500); Clock.free = true; return; }
+      Clock.free = true; this.updateObjective(); AudioFX.success();
+      UI.toast('🧭 巡檢全部完成！接下來自由探索，17:00 下班', 4500);
+    }
   },
   nearMiss() {
     if (this.state !== 'play' || !this.day || this.day.phase !== 'work' || EventManager.handling || this.blocked()) return;
@@ -3536,11 +3698,11 @@ const Game = {
     AudioFX.beep(900, 0.2); UI.flash('r'); this.block('nearmiss');
     setTimeout(() => { this.unblock('nearmiss'); UI.dialog(['📻 虛驚事件！堆高機及時停下來了。', '請走人行道（黃色斑馬線），遠離堆高機作業範圍。差一點出事也要回報，因為它是事故的預告。']).then(() => { this.addSafety(-5, '虛驚事件'); this.unlockCard('nearmiss'); this.unlockCard('forklift'); }); }, 1000);
   },
-  async lunch() {
+  async lunch(over) {
     if (this.day) this.day.lunchDone = true; this.block('lunch'); $('#fade').classList.add('on'); await wait(1200);
     const L = $('#lunch');
     L.innerHTML = '<div class="card" style="max-width:440px;text-align:center"><div style="font-size:54px">🍱</div><h2 style="margin:4px 0">午餐時間</h2><p style="line-height:1.7">' + Glossary.markup('💡 冷知識：' + pick(TEXT.lunchFacts)) + '</p></div>';
-    $('.card', L).appendChild(btn('吃飽了，下午繼續 ▶', 'warn', () => { L.classList.remove('show'); $('#fade').classList.remove('on'); Clock.min = 780; World.setSky(780); this.unblock('lunch'); }));
+    $('.card', L).appendChild(btn('吃飽了，下午繼續 ▶', 'warn', () => { L.classList.remove('show'); $('#fade').classList.remove('on'); Clock.min = 780 + Math.max(0, Math.min(60, over || 0)); World.setSky(Clock.min); this.unblock('lunch'); }));
     L.classList.add('show');
   },
   quitToMenu() { if (this.points) this.points.forEach(p => World.scene.remove(p.mesh)); this.points = null; EventManager.abort(); MiniGames.active = null; $('#mg').classList.remove('show'); FX.clear(); NPCs.clearAll(); this.interacts = []; this.blocks.clear(); this.day = null; this.state = 'menu'; Clock.running = false; $('#hud').classList.add('hidden'); UI.objective(''); AudioFX.stopAmbient(); CameraRig.mode = 'menu'; CameraRig.setOffset(null); $('#dialog').classList.remove('show'); $('#lunch').classList.remove('show'); $('#fade').classList.remove('on'); World.setNight(false); UI.menu(); },
@@ -3548,7 +3710,7 @@ const Game = {
   endDay(shutdown) {
     if (this.state !== 'play') return;
     const day = this.day; this.state = 'end'; Clock.running = false;
-    EventManager.abort(); MiniGames.active = null; $('#mg').classList.remove('show'); $('#dialog').classList.remove('show'); this.blocks.clear(); Player.frozen = true;
+    EventManager.abort(); MiniGames.active = null; $('#mg').classList.remove('show'); $('#dialog').classList.remove('show'); $('#lunch').classList.remove('show'); $('#fade').classList.remove('on'); this.blocks.clear(); Player.frozen = true;
     $('#hud').classList.add('hidden'); UI.objective(''); AudioFX.stopAmbient(); $('#tint').style.background = 'rgba(0,0,0,0)';
     const S = Save.data, oldRank = S.rank;
     const handled = day.events.filter(e => e.state === 'done');
@@ -3564,12 +3726,15 @@ const Game = {
     // 徽章
     const f = day.flags, earned = [];
     const award = id => { if (S.badges.indexOf(id) < 0) { S.badges.push(id); earned.push(id); } };
-    if (!shutdown) {
+    // 「一整天」類徽章：要把當天工作做完才算（交接給晚班學長的日子不算）
+    const fullDay = !shutdown && !day.handover;
+    if (fullDay) {
       if (day.maxLevel < 2) award('zero');
-      if (ppeEv && ppeEv.state === 'done') award('eagle');
       if (alarmEv.length && alarmEv.every(e => e.arrive != null && e.arrive <= 30)) award('speedy');
       if (day.nearMiss === 0) award('nonearmiss');
+      if (!day.overtime) award('ontime'); else if (day.overtimeTo) award('mission');
     }
+    if (!shutdown && ppeEv && ppeEv.state === 'done') award('eagle');
     ['lockout', 'wind', 'phoenix', 'medic', 'firefighter', 'thermal', 'gatekeeper'].forEach(k => { if (f[k]) award(k === 'wind' ? 'wind' : k); });
     S.xp += xp; S.days += 1; if (S.days >= 10) award('fulltime');
     S.rank = rankOf(S.xp);
@@ -3588,10 +3753,12 @@ const Game = {
     const missing = CARDS.length - S.cards.length;
     const tip = missing > 0 ? '圖鑑還差 ' + missing + ' 張就能收集完成' + (nx ? '；再 ' + (nx.xp - S.xp) + ' XP 就能晉升' + nx.name : '') + '。' : '圖鑑已全部收集！挑戰 S 評等吧。';
     const s = UI.show('<div class="wrap"><h2 style="text-align:center;margin-bottom:0">📋 今日工作報告</h2><div style="text-align:center;opacity:.8">' + (day.night ? '夜班' : '日班') + '・第 ' + S.days + ' 天・吹' + DIRS[day.windFrom].n + '風</div>' +
+      (day.overtimeTo ? '<div style="text-align:center;margin-top:6px">⏰ 今天加班到 ' + hhmm(day.overtimeTo) + '，辛苦了！</div>' : '') +
+      (day.handover ? '<div style="text-align:center;margin-top:6px">🌙 剩下 ' + day.handover.points + ' 個巡檢點' + (day.handover.events ? '、' + day.handover.events + ' 個待處理狀況' : '') + '交接給晚班學長，明天要按時完成喔！</div>' : '') +
       '<div class="grade g' + grade + '">' + grade + '</div><div style="text-align:center;font-size:calc(18px + var(--fz));font-weight:800">🧑‍🔧 學長：「' + TEXT.gradeTalk[grade] + '」</div>' +
-      '<div class="card"><div class="stats"><div class="stat"><div class="k">廠區安全值</div><div class="v">' + day.safety + '</div></div><div class="stat"><div class="k">獲得 XP</div><div class="v" id="xpCount">0</div></div><div class="stat"><div class="k">巡檢點</div><div class="v">' + day.inspected + ' / 6</div></div><div class="stat"><div class="k">虛驚事件</div><div class="v">' + day.nearMiss + ' 次</div></div></div>' +
+      '<div class="card"><div class="stats"><div class="stat"><div class="k">廠區安全值</div><div class="v">' + day.safety + '</div></div><div class="stat"><div class="k">獲得 XP</div><div class="v" id="xpCount">0</div></div><div class="stat"><div class="k">巡檢點</div><div class="v">' + day.inspected + ' / ' + day.points.length + '</div></div><div class="stat"><div class="k">虛驚事件</div><div class="v">' + day.nearMiss + ' 次</div></div></div>' +
       '<div class="xpbar"><i id="xpBar" style="width:0"></i></div><div style="font-size:calc(13px + var(--fz));color:var(--ink2)">' + RANKS[S.rank].name + '　XP ' + S.xp + (nx ? ' / ' + nx.xp : '') + '</div>' +
-      '<h3 style="margin:14px 0 4px">事件</h3>' + day.events.map(e => '<div class="evrow"><span>' + esc(e.def.title) + '<br><small style="color:var(--ink2)">' + esc(e.variant.desc) + (e.accident ? '・事故' : e.rewound ? '・時光回溯' : '') + (e.hintUsed ? '・用了提示' : '') + '</small></span><span class="stars">' + (e.state === 'done' ? '★'.repeat(e.stars) + '☆'.repeat(3 - e.stars) : (e.def.silent ? '漏看' : '—')) + '</span></div>').join('') +
+      '<h3 style="margin:14px 0 4px">事件</h3>' + day.events.map(e => '<div class="evrow"><span>' + esc(e.def.title) + '<br><small style="color:var(--ink2)">' + esc(e.variant.desc) + (e.accident ? '・事故' : e.rewound ? '・時光回溯' : '') + (e.hintUsed ? '・用了提示' : '') + '</small></span><span class="stars">' + (e.state === 'done' ? '★'.repeat(e.stars) + '☆'.repeat(3 - e.stars) : (e.def.silent ? '漏看' : day.handover ? '交接晚班' : '—')) + '</span></div>').join('') +
       (missedPPE ? '<p style="color:var(--danger)">⚠ 有作業員沒正確穿戴 PPE，你今天沒有發現（安全值 −10）。巡檢時多注意身邊的同事！</p>' : '') +
       '</div><div class="card"><h3 style="margin:0 0 6px">今天學到的</h3><div class="grid" id="dayCards"></div>' +
       (earned.length ? '<h3 style="margin:14px 0 6px">🏅 新徽章</h3><div class="grid">' + earned.map(id => '<div class="badge"><div class="ico">' + BADGE[id].icon + '</div><b>' + BADGE[id].name + '</b></div>').join('') + '</div>' : '') +
@@ -3634,7 +3801,7 @@ const Game = {
       if (this.state === 'play' && !this.autoLow && Save.data.settings.quality === 'auto') { this.lowCount = this.fps < 25 ? this.lowCount + 1 : 0; if (this.lowCount >= 3) { this.autoLow = true; World.applyQuality(true); UI.toast('畫面不夠順，已自動降低畫質（可在設定調整）'); } }
       if (DEBUG) { const d = $('#debug'); if (d) d.textContent = 'FPS ' + this.fps.toFixed(0) + '  calls ' + World.renderer.info.render.calls + '  tris ' + World.renderer.info.render.triangles + '\n' + hhmm(Clock.min) + '  1-9 觸發事件  F +30分  T 跳到下班  G 跳過換裝'; }
     }
-    if (this.state !== 'play') { CameraRig.update(dt, inp); World.update(dt, t); FX.update(dt, t); return; }
+    if (this.state !== 'play') { CameraRig.update(dt, inp); World.update(dt, t); FX.update(dt, t); World.updateLabels(); return; }
     const frozen = this.blocked(), sdt = frozen ? 0 : dt * this.timeScale;
     if (frozen && !this.blocks.has('accident-anim')) inp = { moveX: 0, moveZ: 0, run: false, interact: false, lookX: 0, lookY: 0, zoom: 0 };
     const accAnim = this.blocks.has('accident-anim'), adt = accAnim ? dt * this.timeScale : sdt;
@@ -3645,7 +3812,7 @@ const Game = {
     if (!frozen) { Clock.update(sdt); EventManager.update(sdt); MiniGames.update(sdt, t); }
     FX.update(adt, t); World.update(dt, t);
     CameraRig.update(dt, inp);
-    if (this.day.phase === 'dress') this.gateCheck();
+    if (this.day.phase === 'dress') this.gateCheck(); else this.updateFlow();
     this.updateInteract(inp);
     this.updateArrow(t);
     World.updateLabels();
@@ -3683,7 +3850,7 @@ const Game = {
     const ev = EventManager.pending, tgt = Game.tempTarget ? [Game.tempTarget.x, Game.tempTarget.z] : (ev && ev.state === 'pending' && !ev.def.silent ? ev.loc.p : null);
     const show = tgt && Math.hypot(tgt[0] - Player.pos.x, tgt[1] - Player.pos.z) > 3.5;
     this.arrow.visible = !!show;
-    if (show) { const a = Math.atan2(tgt[0] - Player.pos.x, tgt[1] - Player.pos.z); this.arrow.position.set(Player.pos.x + Math.sin(a) * 1.6, 0.07, Player.pos.z + Math.cos(a) * 1.6); this.arrow.rotation.set(-Math.PI / 2, a, 0); this.arrow.rotation.y = a; this.arrow.material.color.set(Game.tempTarget ? 0x3cff8a : 0xffcc00); this.arrow.material.opacity = 0.6 + Math.sin(t * 6) * 0.25; }
+    if (show) { const a = Math.atan2(tgt[0] - Player.pos.x, tgt[1] - Player.pos.z); this.arrow.position.set(Player.pos.x + Math.sin(a) * 1.6, 0.07, Player.pos.z + Math.cos(a) * 1.6); this.arrow.rotation.set(-Math.PI / 2, a + Math.PI, 0); this.arrow.material.color.set(Game.tempTarget ? 0x3cff8a : 0xffcc00); this.arrow.material.opacity = 0.6 + Math.sin(t * 6) * 0.25; }
   }
 };
 
